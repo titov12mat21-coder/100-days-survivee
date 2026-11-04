@@ -1,0 +1,73 @@
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html,body { width:100%; height:100%; overflow:hidden; background:#000; font-family:'Segoe UI',system-ui,sans-serif; color:#fff; user-select:none; }
+#gameCanvas { display:block; width:100%; height:100%; }
+
+/* HUD */
+#hud { position:fixed; inset:0; pointer-events:none; z-index:10; display:none; }
+#statBars { position:absolute; top:12px; left:12px; display:flex; flex-direction:column; gap:6px; }
+.bar { position:relative; width:180px; height:20px; background:rgba(0,0,0,0.5); border-radius:6px; overflow:hidden; border:1px solid rgba(255,255,255,0.2); }
+.bar span { position:absolute; left:6px; top:1px; font-size:11px; font-weight:700; z-index:2; text-shadow:1px 1px 2px #000; }
+.bar .fill { height:100%; width:100%; transition:width 0.2s; }
+.bar.health .fill { background:linear-gradient(90deg,#c33,#f55); }
+.bar.hunger .fill { background:linear-gradient(90deg,#a76,#ea8); }
+.bar.thirst .fill { background:linear-gradient(90deg,#38c,#5af); }
+.bar.energy .fill { background:linear-gradient(90deg,#8a3,#bd5); }
+
+#topInfo { position:absolute; top:12px; right:12px; text-align:right; font-size:14px; font-weight:700; text-shadow:1px 1px 3px #000; line-height:1.5; }
+
+#hotbar { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:6px; pointer-events:auto; }
+#hotbar .slot { width:56px; height:56px; background:rgba(20,20,30,0.75); border:2px solid rgba(255,255,255,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer; }
+#hotbar .slot.selected { border-color:#f5c842; box-shadow:0 0 12px rgba(245,200,66,0.7); }
+#hotbar .icon { font-size:26px; }
+#hotbar .count { position:absolute; bottom:2px; right:4px; font-size:11px; font-weight:700; text-shadow:1px 1px 2px #000; }
+
+#crosshair { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:22px; color:#fff; opacity:0.6; text-shadow:1px 1px 2px #000; }
+#prompt { position:absolute; bottom:100px; left:50%; transform:translateX(-50%); font-size:14px; background:rgba(0,0,0,0.6); padding:6px 14px; border-radius:8px; }
+
+/* Screens */
+#startScreen, #deathScreen, #winScreen { position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; background:radial-gradient(ellipse at center,#1a1a3a,#000); z-index:100; padding:20px; text-align:center; }
+#startScreen h1, #deathScreen h1, #winScreen h1 { font-size:clamp(28px,7vw,64px); letter-spacing:4px; text-shadow:0 0 20px #6af; }
+#deathScreen h1 { color:#f55; }
+#startScreen p { max-width:500px; opacity:0.85; }
+.hint { font-size:12px; opacity:0.55; margin-top:12px; }
+.btnrow { display:flex; gap:12px; }
+button { padding:12px 24px; background:#3a6ea5; color:#fff; border:none; border-radius:8px; font-size:16px; font-weight:700; cursor:pointer; transition:background 0.2s; }
+button:hover { background:#4a7ec5; }
+button:disabled { background:#333; opacity:0.5; cursor:not-allowed; }
+
+/* Panels */
+.hidden { display:none !important; }
+#invScreen, #craftScreen, #buildScreen { position:fixed; inset:0; background:rgba(0,0,0,0.72); display:flex; align-items:center; justify-content:center; z-index:50; padding:20px; }
+.panel { background:#1a1e2e; border:2px solid #4a6ea5; border-radius:12px; padding:20px; width:min(560px,100%); max-height:85vh; overflow-y:auto; }
+.panel h2 { margin-bottom:12px; color:#f5c842; }
+#invGrid { display:grid; grid-template-columns:repeat(6,1fr); gap:8px; margin:12px 0; }
+.invSlot { aspect-ratio:1; background:#2a3040; border:1px solid #4a6ea5; border-radius:6px; display:flex; align-items:center; justify-content:center; position:relative; cursor:pointer; font-size:22px; }
+.invSlot .count { position:absolute; bottom:2px; right:4px; font-size:11px; }
+.craftRow { display:flex; align-items:center; gap:10px; padding:8px; background:#2a3040; border-radius:8px; margin:6px 0; }
+.craftRow.disabled { opacity:0.45; }
+.craftRow .icon { font-size:28px; width:36px; text-align:center; }
+.craftRow .info { flex:1; }
+.craftRow .name { font-weight:700; }
+.craftRow .cost { font-size:12px; opacity:0.8; margin-top:2px; }
+.craftRow button { padding:8px 14px; font-size:13px; }
+
+/* Banner */
+#banner { display:none; position:fixed; top:20%; left:50%; transform:translateX(-50%); background:rgba(40,10,10,0.92); border:2px solid #f5c842; padding:20px 40px; border-radius:12px; z-index:60; text-align:center; animation:bannerPop 0.4s ease; }
+#banner h2 { color:#f5c842; margin-bottom:6px; }
+@keyframes bannerPop { from{opacity:0;transform:translate(-50%,-20px)} to{opacity:1;transform:translate(-50%,0)} }
+
+/* Mobile */
+#mobileControls { position:fixed; inset:0; pointer-events:none; z-index:20; }
+#joystickZone { position:absolute; bottom:100px; left:30px; width:120px; height:120px; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.2); border-radius:50%; pointer-events:auto; }
+#joystickKnob { position:absolute; top:50%; left:50%; width:50px; height:50px; margin:-25px 0 0 -25px; background:rgba(255,255,255,0.35); border-radius:50%; transition:transform 0.05s; }
+#mobileButtons { position:absolute; bottom:30px; right:20px; display:grid; grid-template-columns:repeat(2,60px); gap:10px; pointer-events:auto; }
+#mobileButtons button { width:60px; height:60px; padding:0; font-size:22px; border-radius:50%; background:rgba(58,110,165,0.85); }
+
+@media (max-width:700px) {
+  .bar { width:130px; height:16px; }
+  .bar span { font-size:9px; }
+  #hotbar .slot { width:44px; height:44px; }
+  #hotbar .icon { font-size:20px; }
+  #topInfo { font-size:12px; }
+  #invGrid { grid-template-columns:repeat(4,1fr); }
+}

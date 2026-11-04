@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>100 DAYS: SURVIVE</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+
+<div id="hud">
+  <div id="statBars">
+    <div class="bar health"><span>HP</span><div class="fill"></div></div>
+    <div class="bar hunger"><span>FD</span><div class="fill"></div></div>
+    <div class="bar thirst"><span>WA</span><div class="fill"></div></div>
+    <div class="bar energy"><span>EN</span><div class="fill"></div></div>
+  </div>
+  <div id="topInfo">
+    <div id="dayInfo">Day 1/100</div>
+    <div id="timeInfo">06:00</div>
+    <div id="weatherInfo">☀️ Clear</div>
+  </div>
+  <div id="hotbar"></div>
+  <div id="crosshair">+</div>
+  <div id="prompt"></div>
+</div>
+
+<div id="startScreen">
+  <h1>100 DAYS: SURVIVE</h1>
+  <p>Survive 100 days on an unknown alien planet. Explore, gather, craft, build, fight.</p>
+  <div class="btnrow">
+    <button id="btnNew">New Game</button>
+    <button id="btnLoad">Continue</button>
+  </div>
+  <p class="hint">WASD · Mouse · E interact · Click attack · I inventory · C craft · B build · F eat</p>
+</div>
+
+<div id="invScreen" class="hidden"><div class="panel">
+  <h2>Inventory</h2>
+  <div id="invGrid"></div>
+  <button id="invClose">Close (I)</button>
+</div></div>
+
+<div id="craftScreen" class="hidden"><div class="panel">
+  <h2>Crafting</h2>
+  <div id="craftList"></div>
+  <button id="craftClose">Close (C)</button>
+</div></div>
+
+<div id="buildScreen" class="hidden"><div class="panel">
+  <h2>Build</h2>
+  <div id="buildList"></div>
+  <button id="buildClose">Close (B)</button>
+</div></div>
+
+<div id="banner">
+  <h2></h2>
+  <p></p>
+</div>
+
+<div id="deathScreen" class="hidden">
+  <h1>You Died</h1>
+  <p id="deathMsg"></p>
+  <button id="btnRespawn">Start Over</button>
+</div>
+
+<div id="winScreen" class="hidden">
+  <h1>🏆 You Survived!</h1>
+  <p>100 days on a hostile alien planet. Legend.</p>
+  <button id="btnWinRestart">Play Again</button>
+</div>
+
+<div id="mobileControls" class="hidden">
+  <div id="joystickZone"><div id="joystickKnob"></div></div>
+  <div id="mobileButtons">
+    <button id="mJump">⤒</button>
+    <button id="mInteract">E</button>
+    <button id="mInv">🎒</button>
+    <button id="mCraft">🛠</button>
+    <button id="mBuild">🧱</button>
+  </div>
+</div>
+
+<script type="module" src="game.js"></script>
+</body>
+</html>
